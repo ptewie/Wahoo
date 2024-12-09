@@ -13,6 +13,8 @@ public class HumanoidPawn : Pawn
 
     public override void Move(Vector3 direction)
     {
+        direction = direction * maxMoveSpeed;
+
         animator.SetFloat("Forward", direction.z);
         animator.SetFloat("Right", direction.x);
     }
