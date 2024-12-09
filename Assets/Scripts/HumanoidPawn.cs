@@ -18,4 +18,9 @@ public class HumanoidPawn : Pawn
         animator.SetFloat("Forward", direction.z);
         animator.SetFloat("Right", direction.x);
     }
+
+    public override void Rotate(float speed)
+    {
+        transform.Rotate(0, speed * maxRotationSpeed * Time.deltaTime, 0);
+    }
 }

@@ -12,7 +12,11 @@ public class PlayerController : Controller
     protected override void MakeDecisions()
     {
         Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
         moveVector = Vector3.ClampMagnitude(moveVector, 1);
+
         pawn.Move(moveVector);
+
+        pawn.Rotate(Input.GetAxis("CameraRotation"));
     }
 }

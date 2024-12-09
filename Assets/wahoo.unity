@@ -540,4 +540,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  maxRotationSpeed: 2
   maxMoveSpeed: 2
