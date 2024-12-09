@@ -540,4 +540,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
-  maxMoveSpeed: 0
+  maxMoveSpeed: 2
