@@ -395,6 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 2132870287}
+  isMouseRotation: 1
 --- !u!4 &1604268592
 Transform:
   m_ObjectHideFlags: 0
@@ -539,5 +540,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fbdc0d826154346a03865ebf59a87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRotationSpeed: 0
   controller: {fileID: 0}
   maxMoveSpeed: 0
