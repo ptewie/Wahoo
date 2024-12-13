@@ -12,11 +12,6 @@ public class PlayerController : Controller
 
     protected override void MakeDecisions()
     {
-        if (pawn == null )
-        {
-
-
-        }
         Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         moveVector = Vector3.ClampMagnitude(moveVector, 1);

@@ -10,7 +10,7 @@ public class HumanoidPawn : Pawn
     {
         animator = GetComponent<Animator>();
     }
-
+    
     public override void Move(Vector3 direction)
     {
         direction *= maxMoveSpeed;
@@ -37,7 +37,7 @@ public class HumanoidPawn : Pawn
 
     public void OnAnimatorMove()
     {
-        // After the animation runs
+    
         transform.position = animator.rootPosition;
         transform.rotation = animator.rootRotation;
 
