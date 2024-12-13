@@ -8,7 +8,7 @@ public class AIController : Controller
     [HideInInspector] public NavMeshAgent agent;
     public float stoppingDistance;
 
-    public Pawn pawn;
+    //public Pawn pawn;
     public Transform targetTransform;
     private Vector3 desiredVelocity = Vector3.zero;
 
@@ -18,18 +18,18 @@ public class AIController : Controller
         base.Start();
     }
 
-    public override void PossessPawn ( Pawn pawnToPossess ) 
+    public override void PossessPawn (Pawn pawnToPossess) 
     {  
         // Set the variables (from the base class's definition)
         base.PossessPawn(pawnToPossess);
 
         // Get the agent off the pawn
-        agent = pawn.GetComponent();
+        agent = pawn.GetComponent<NavMeshAgent>();
 
         // If it doesn't have one, add one and store it
         if (agent == null) {
-            agent = pawn.gameObject.AddComponent();
-        }
+            agent = pawn.gameObject.AddComponent<NavMeshAgent>();
+            }
 
         // Set the stopping distance
         agent.stoppingDistance = stoppingDistance;
@@ -79,7 +79,7 @@ public class AIController : Controller
         pawn.Move(desiredVelocity.normalized);
 
         // Look towards the player
-        pawn.RotateToLookAt(targetTransform.position);
+        //pawn.RotateToLookAt(targetTransform.position);
     }
 }
 
