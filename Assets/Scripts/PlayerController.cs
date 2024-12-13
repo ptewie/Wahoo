@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : Controller
 {        
+    public bool isMouseRotation;
     protected override void Update()
     {
         base.Update();
@@ -11,7 +12,11 @@ public class PlayerController : Controller
 
     protected override void MakeDecisions()
     {
-        
+        if (pawn == null )
+        {
+
+
+        }
         Vector3 moveVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         moveVector = Vector3.ClampMagnitude(moveVector, 1);
@@ -19,6 +24,13 @@ public class PlayerController : Controller
         pawn.Move(moveVector);
 
         pawn.Rotate(Input.GetAxis("CameraRotation"));
+
+        if (pawn != null && moveVector != null)
+        {
+            pawn.Move(moveVector);
+
+            RotatePawn(isMouseRotation);
+        }
     }
 
     private void RotatePawn(bool isMouseRotation)
@@ -41,8 +53,8 @@ public class PlayerController : Controller
                 Debug.Log("Camera is not looking at the ground - no intersection between plane and ray");
             }
         } else 
-        { 
-            pawn.Rotate(Input.GetAxis("CameraRotation"));
-        }
+            { 
+                pawn.Rotate(Input.GetAxis("CameraRotation"));
+            }
     }
 }

@@ -13,7 +13,7 @@ public class HumanoidPawn : Pawn
 
     public override void Move(Vector3 direction)
     {
-        direction = direction * maxMoveSpeed;
+        direction *= maxMoveSpeed;
 
         direction = transform.InverseTransformDirection(direction);
 
@@ -38,14 +38,11 @@ public class HumanoidPawn : Pawn
     public void OnAnimatorMove()
     {
         // After the animation runs
-        // Use root motion to move the game object
         transform.position = animator.rootPosition;
         transform.rotation = animator.rootRotation;
 
-        // If we have a NavMeshAgent on our controller,
         AIController aiController = controller as AIController;
         if (aiController != null) {
-            // Set our navMeshAgent to understand it is as the position from the animator
             aiController.agent.nextPosition = animator.rootPosition;            
         }
     }
