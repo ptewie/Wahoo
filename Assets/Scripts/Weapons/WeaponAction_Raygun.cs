@@ -7,6 +7,8 @@ public class WeaponAction_Raygun : WeaponAction
     public float fireDistance;
     public Transform firepoint;
 
+    private GameObject laserPrefab;
+
     private bool isAutofireActive;
     private LineRenderer lineRenderer;
     // Start is called before the first frame update
@@ -38,6 +40,7 @@ public class WeaponAction_Raygun : WeaponAction
         float secondsPerShot = 1/weapon.fireRate;
         if (Time.time >= lastShotTime + secondsPerShot) {
             // if so, do the Raycast
+
             if (Physics.Raycast(firepoint.position, firepoint.forward, out hit, fireDistance)) {
                 // If we hit, and the other object has a Health component
                 Health otherHealth = hit.collider.gameObject.GetComponent<Health>();
@@ -46,6 +49,10 @@ public class WeaponAction_Raygun : WeaponAction
                     otherHealth.TakeDamage(weapon.damageDone);
                 }
             }
+
+            LaserBeam laser = Instantiate(laserPrefab, this.transform).GetComponent<LaserBeam>();
+            laser.startPoint = firepoint.position;
+            laser.endPoint = laser.startPoint + (firepoint.forward * fireDistance);
 
             // Save the time we shot
             lastShotTime = Time.time;
