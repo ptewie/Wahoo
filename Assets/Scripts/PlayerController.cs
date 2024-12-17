@@ -26,6 +26,19 @@ public class PlayerController : Controller
 
             RotatePawn(isMouseRotation);
         }
+
+        if (Input.GetButtonDown("Fire1")) {
+            pawn.weapon.OnPrimaryAttackBegin.Invoke();
+        }
+        if (Input.GetButtonUp("Fire1")) {
+            pawn.weapon.OnPrimaryAttackEnd.Invoke();
+        }
+        if (Input.GetButtonDown("Fire2")) {
+            pawn.weapon.OnSecondaryAttackBegin.Invoke();
+        }
+        if (Input.GetButtonUp("Fire2")) {
+            pawn.weapon.OnSecondaryAttackEnd.Invoke();
+        }
     }
 
     private void RotatePawn(bool isMouseRotation)
@@ -37,7 +50,8 @@ public class PlayerController : Controller
 
             Plane footPlane = new Plane(Vector3.up, pawn.transform.position);
 
-            float distanceToIntersect;     
+            float distanceToIntersect;   
+
             if (footPlane.Raycast(mouseRay, out distanceToIntersect)) 
             { 
                 Vector3 intersectionPoint = mouseRay.GetPoint(distanceToIntersect);

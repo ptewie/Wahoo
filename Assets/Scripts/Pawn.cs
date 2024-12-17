@@ -8,6 +8,8 @@ public abstract class Pawn : MonoBehaviour
     public float maxRotationSpeed;
     public float maxMoveSpeed;
 
+    public Weapon weapon;
+
     public abstract void Move(Vector3 direction);
 
     public abstract void Rotate(float speed);   
