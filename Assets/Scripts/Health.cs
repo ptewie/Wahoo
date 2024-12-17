@@ -1,31 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
-
+using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public UnityEvent OnTakeDamage;
-    public UnityEvent OnDeath;
-    public UnityEvent OnHealDamage;
-    public float maxHealth;
+    [Header("health values")]
     public float currentHealth;
+    public float maxHealth;
+    [SerializeField] private float initialHealth;
+    [Header("events")]
+    public UnityEvent OnTakeDamage;
+    public UnityEvent OnHeal;
+    public UnityEvent OnDeath;
+
+    public void Start ()
+    {
+        currentHealth = initialHealth;
+    }
 
     public void TakeDamage(float damage)
     {
-        currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth); 
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnTakeDamage.Invoke();
-
         if (currentHealth <= 0)
         {
-            OnDeath.Invoke();
+            Die();
         }
     }
 
-    public void HealDamage(float toHeal)
+    public void HealDamage (float damage)
     {
-        currentHealth = Mathf.Clamp(currentHealth + toHeal, 0, maxHealth);
-        OnHealDamage.Invoke();
+        currentHealth += damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        OnHeal.Invoke();
+    }
+
+    public void HealToFull ()
+    {
+        currentHealth = maxHealth;
+    }
+
+    public void Die ()
+    {
+        currentHealth = 0;
+
+        OnDeath.Invoke();
+    }
+
+    public float HealthPercent()
+    {
+        return currentHealth / maxHealth;
     }
 }

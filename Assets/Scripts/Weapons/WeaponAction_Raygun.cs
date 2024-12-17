@@ -7,7 +7,7 @@ public class WeaponAction_Raygun : WeaponAction
     public float fireDistance;
     public Transform firepoint;
 
-    private GameObject laserPrefab;
+    [SerializeField] private GameObject laserPrefab;
 
     private bool isAutofireActive;
     private LineRenderer lineRenderer;
@@ -47,6 +47,7 @@ public class WeaponAction_Raygun : WeaponAction
                 if ( otherHealth != null) {
                     // Tell it to take damage!
                     otherHealth.TakeDamage(weapon.damageDone);
+                    Debug.Log("Hit!");
                 }
             }
 

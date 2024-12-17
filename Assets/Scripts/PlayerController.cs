@@ -27,16 +27,16 @@ public class PlayerController : Controller
             RotatePawn(isMouseRotation);
         }
 
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
             pawn.weapon.OnPrimaryAttackBegin.Invoke();
         }
-        if (Input.GetButtonUp("Fire1")) {
+        if (Input.GetKeyUp(KeyCode.Mouse0)) {
             pawn.weapon.OnPrimaryAttackEnd.Invoke();
         }
-        if (Input.GetButtonDown("Fire2")) {
+        if (Input.GetKeyDown(KeyCode.Mouse1)) {
             pawn.weapon.OnSecondaryAttackBegin.Invoke();
         }
-        if (Input.GetButtonUp("Fire2")) {
+        if (Input.GetKeyUp(KeyCode.Mouse1)) {
             pawn.weapon.OnSecondaryAttackEnd.Invoke();
         }
     }
