@@ -71,11 +71,11 @@ public class WeaponAction_Raygun : WeaponAction
             if (isCharged) 
             {
                 isCharged = false;
-                chargefactor = chargeModifier; 
+                chargefactor = 1; 
             } 
             else
             {
-                chargefactor = 1;
+                chargefactor = chargeModifier;
                 isCharged = true;
             }
         }

@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     [Header("health values")]
     public float currentHealth;
     public float maxHealth;
+
+    public bool isMarked;
     [SerializeField] private float initialHealth;
     [Header("events")]
     public UnityEvent OnTakeDamage;
@@ -23,6 +25,13 @@ public class Health : MonoBehaviour
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        OnTakeDamage.Invoke();
+
+        if (isMarked == true)
+        {
+            
+        }
+
         OnTakeDamage.Invoke();
         if (currentHealth <= 0)
         {
