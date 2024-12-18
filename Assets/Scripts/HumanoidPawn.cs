@@ -46,4 +46,47 @@ public class HumanoidPawn : Pawn
             aiController.agent.nextPosition = animator.rootPosition;            
         }
     }
+
+        public void OnAnimatorIK()
+    {
+        // If they don't have a weapon, don't worry about IK
+        if (!weapon) {
+            // Set their IK weights to 0
+            animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0f);
+            animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0f);
+            animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0f);
+            animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0f);
+        
+            // Leave the function
+            return;
+        }
+
+        // Set the IK for our Right Hand
+        if (weapon.RightHandIKTarget)
+        {
+            animator.SetIKPosition(AvatarIKGoal.RightHand, weapon.RightHandIKTarget.position);
+            animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+            animator.SetIKRotation(AvatarIKGoal.RightHand, weapon.RightHandIKTarget.rotation);
+            animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
+        }
+        else
+        {
+            animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0f);
+            animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0f);
+        }
+
+        // Set the IK for our Left LeftHandIKTarget)
+        if (weapon.LeftHandIKTarget)
+        {
+            animator.SetIKPosition(AvatarIKGoal.LeftHand, weapon.LeftHandIKTarget.position);
+            animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+            animator.SetIKRotation(AvatarIKGoal.LeftHand, weapon.LeftHandIKTarget.rotation);
+            animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
+        }
+        else
+        {
+            animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0f);
+            animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0f);
+        }
+    }
 }

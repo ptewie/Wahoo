@@ -6,6 +6,10 @@ public class WeaponAction_Raygun : WeaponAction
 {
     public float fireDistance;
     public Transform firepoint;
+    public bool isCharged;
+    private float chargefactor = 1;
+
+    public float chargeModifier;
 
     [SerializeField] private GameObject laserPrefab;
 
@@ -19,7 +23,8 @@ public class WeaponAction_Raygun : WeaponAction
 
         public override void Start()
         {        
-            base.Start();       
+            base.Start();      
+            isCharged = false; 
         }
 
         // Update is called once per frame
@@ -44,9 +49,10 @@ public class WeaponAction_Raygun : WeaponAction
             if (Physics.Raycast(firepoint.position, firepoint.forward, out hit, fireDistance)) {
                 // If we hit, and the other object has a Health component
                 Health otherHealth = hit.collider.gameObject.GetComponent<Health>();
+
                 if ( otherHealth != null) {
                     // Tell it to take damage!
-                    otherHealth.TakeDamage(weapon.damageDone);
+                    otherHealth.TakeDamage(weapon.damageDone * chargefactor);
                     Debug.Log("Hit!");
                 }
             }
@@ -60,14 +66,18 @@ public class WeaponAction_Raygun : WeaponAction
         }
     }
 
-        public void AutofireBegin()
+        public void Charge()
         {
-            isAutofireActive = true;
-        }
-
-        public void AutofireEnd()
-        {
-            isAutofireActive = false;
+            if (isCharged) 
+            {
+                isCharged = false;
+                chargefactor = chargeModifier; 
+            } 
+            else
+            {
+                chargefactor = 1;
+                isCharged = true;
+            }
         }
 }
 
