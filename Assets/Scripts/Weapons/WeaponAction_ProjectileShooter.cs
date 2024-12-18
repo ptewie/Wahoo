@@ -18,10 +18,19 @@ public class WeaponAction_ProjectileShooter : WeaponAction
         {
             // if so...
 
+            // Store the direction we shoot without the accuracy system
+            Vector3 newFireDirection = firePoint.forward;
+
+            // Get the roation change based on our accuracy
+            Quaternion accuracyFireDelta = Quaternion.Euler(0, weapon.GetAccuracyRotationDegrees(), 0);
+
+            // Multiply by the rotation from inaccuacy to set new rotation value
+            newFireDirection = accuracyFireDelta * newFireDirection;
+
             // Instantiate the projectile
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation) as GameObject;
 
-            projectile.gameObject.layer = this.gameObject.layer;          
+            projectile.transform.Rotate(0, weapon.GetAccuracyRotationDegrees(weapon.owner,controller.accuracy), 0);       
            
 
             // Set the data for the projectile

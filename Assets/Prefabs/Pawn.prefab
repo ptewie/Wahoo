@@ -94,6 +94,11 @@ MonoBehaviour:
   controller: {fileID: 0}
   maxRotationSpeed: 450
   maxMoveSpeed: 3
+  weapon: {fileID: 0}
+  startingWeaponOptions:
+  - {fileID: 3416277203447447013, guid: f0aca6af94e06254ebdfe0998c50cdd0, type: 3}
+  - {fileID: 8303207965829870944, guid: 402aae66949e6b74aaba5eae8f9ad4db, type: 3}
+  weaponAttachmentPoint: {fileID: 0}
 --- !u!54 &3687608450636736582
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Controller : MonoBehaviour
 {
     public Pawn pawn;
-    
+    public float accuracy;
     protected virtual void Start()
     {
         if (pawn != null) 
@@ -25,7 +25,7 @@ public abstract class Controller : MonoBehaviour
     {
         pawn = pawnToPossess;
         pawn.controller = this;
-        
+
         pawn.gameObject.layer = this.gameObject.layer;  
     }
     

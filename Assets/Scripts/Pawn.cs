@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class Pawn : MonoBehaviour
 {
@@ -9,7 +10,16 @@ public abstract class Pawn : MonoBehaviour
     public float maxMoveSpeed;
 
     public Weapon weapon;
+    [SerializeField] protected Weapon[] startingWeaponOptions;
     public Transform weaponAttachmentPoint;
+
+    protected virtual void Start()
+    {
+        if (startingWeaponOptions.Length > 0)
+        {
+            EquipWeapon(startingWeaponOptions[UnityEngine.Random.Range(0,startingWeaponOptions.Length)]);
+        }
+    }
 
     public abstract void Move(Vector3 direction);
 

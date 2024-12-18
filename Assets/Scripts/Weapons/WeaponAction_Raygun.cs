@@ -44,9 +44,18 @@ public class WeaponAction_Raygun : WeaponAction
         // Check if it is time to fire our weapon 
         float secondsPerShot = 1/weapon.fireRate;
         if (Time.time >= lastShotTime + secondsPerShot) {
-            // if so, do the Raycast
 
-            if (Physics.Raycast(firepoint.position, firepoint.forward, out hit, fireDistance)) {
+            // Store the direction we shoot without the accuracy system
+            Vector3 newFireDirection = firepoint.forward;
+
+            // Get the roation change based on our accuracy
+            Quaternion accuracyFireDelta = Quaternion.Euler(0, weapon.GetAccuracyRotationDegrees(weapon.owner.controller.accuracy), 0);
+
+            // Multiply by the rotation from inaccuacy to set new rotation value
+            newFireDirection = accuracyFireDelta * newFireDirection;
+
+                if (Physics.Raycast(firepoint.position, firepoint.forward, out hit, fireDistance)) {
+
                 // If we hit, and the other object has a Health component
                 Health otherHealth = hit.collider.gameObject.GetComponent<Health>();
 
@@ -59,7 +68,7 @@ public class WeaponAction_Raygun : WeaponAction
 
             LaserBeam laser = Instantiate(laserPrefab, this.transform).GetComponent<LaserBeam>();
             laser.startPoint = firepoint.position;
-            laser.endPoint = laser.startPoint + (firepoint.forward * fireDistance);
+            laser.endPoint = firepoint.position + (newFireDirection * fireDistance);
 
             // Save the time we shot
             lastShotTime = Time.time;

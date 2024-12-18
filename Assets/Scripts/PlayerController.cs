@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : Controller
 {        
     public bool isMouseRotation;
+    public float accuracy;
     protected override void Update()
     {
         base.Update();

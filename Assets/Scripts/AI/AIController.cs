@@ -7,6 +7,12 @@ public class AIController : Controller
 {
     [HideInInspector] public NavMeshAgent agent;
     public float stoppingDistance;
+    public float accuracy;
+
+    [SerializeField] private float shootingDistance;
+
+    [SerializeField]  private float shootingAngle;
+
 
     //public Pawn pawn;
     public Transform targetTransform;
@@ -25,6 +31,7 @@ public class AIController : Controller
         if (agent == null) {
             agent = pawn.gameObject.AddComponent<NavMeshAgent>();
             }
+
         agent.stoppingDistance = stoppingDistance;
         agent.speed = pawn.maxMoveSpeed;
         agent.angularSpeed = pawn.maxRotationSpeed;
@@ -45,6 +52,27 @@ public class AIController : Controller
         base.Update();
     }
 
+    private bool HasTarget()
+    {
+        if (targetTransform != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void TargetPlayer()
+    {
+        Controller playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null)
+        {
+            if (playerController.pawn !=null)
+            {
+                targetTransform = playerController.pawn.transform;
+            }
+        }
+    }
+
     protected override void MakeDecisions()
     {
 
@@ -52,11 +80,28 @@ public class AIController : Controller
         {
             return;
         }
+
         agent.SetDestination(targetTransform.position);
         desiredVelocity = agent.desiredVelocity;
 
         pawn.Move(desiredVelocity.normalized);
         pawn.RotateToLookAt(targetTransform.position);
+
+        // If we are within distance
+        if (Vector3.Distance(targetTransform.position, pawn.transform.position) <= shootingDistance)
+        {
+            // And we are within the angle
+            Vector3 vectorToTarget = targetTransform.position - pawn.transform.position;
+            if ( Vector3.Angle(pawn.transform.forward, vectorToTarget) <= shootingAngle)
+            {
+                // They should pull the trigger
+                pawn.weapon.OnPrimaryAttackBegin.Invoke();
+            }
+        } else
+        {
+            // They can release the trigger
+            pawn.weapon.OnPrimaryAttackEnd.Invoke();
+        }
     }
 }
 
