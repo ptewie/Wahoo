@@ -4,9 +4,40 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
+public class WaveData 
+{
+   public List<Pawn> pawns;
+}
+
 public class SpawnPoint : MonoBehaviour
 {
+    private float gizmoBoxHeight = 2; // Our gizmo box is 2 units tall
+    private float gizmoBoxWidth = 1; // Our gizmo box is 2 units tall
+
+    public void OnDrawGizmos()
+    {
+        // Create a transparent yellow to use
+        Color boxColor = Color.yellow;
+        boxColor.a = 0.7f;
+        // Set our gizmos to that color
+        Gizmos.color = boxColor;
+
+        // Since our box's position is the CENTER of the box, we will want to draw the box 1/2 the height of the box off the ground.
+        // Gizmos are drawn in WORLD space, so you need to access the transform component to set their relative position.
+        // We will start at our position and then move up.
+        Vector3 boxPosition = transform.position;
+        boxPosition += Vector3.up * (gizmoBoxHeight / 2);
+        // Our size will be square on the X/Z, and only use the height
+        Vector3 boxSize = new Vector3(gizmoBoxWidth, gizmoBoxHeight, gizmoBoxWidth);
+        Gizmos.DrawCube(boxPosition, boxSize);
+
+        // Now, we set the gizmo color to red for our ray that shows direction
+        Gizmos.color = Color.red;
+        // And draw the ray in the direction of our spawn
+        Gizmos.DrawRay(boxPosition, transform.forward);
+    }
 }
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -15,10 +46,16 @@ public class GameManager : MonoBehaviour
     
     public bool isPaused;
     public GameObject prefabPlayerController;
-    public GameObject prefabAIController;
+    public AIController prefabAIController;
+    public List<AIController> enemies;
+    public int enemiesRemaining = 0;
     public Pawn prefabPlayerPawn;
+    public Pawn prefabAIPawn;
 
     public PlayerController player;
+
+    public int currentWave;
+    public List<WaveData> waves;
 
     private void Awake()
     {
@@ -37,7 +74,12 @@ public class GameManager : MonoBehaviour
         spawnPoints = FindObjectsOfType<SpawnPoint>();
     }
 
-    public Pawn SpawnPawn ()
+    public Pawn SpawnPawn()
+    {
+        return SpawnPawn(prefabPlayerPawn);
+    }
+
+    public Pawn SpawnPawn  ( Pawn pawnToSpawn )
     {
         // Spawn the Player at a random spawn point
         Transform randomSpawnPoint = GetRandomSpawnPoint();
@@ -67,8 +109,86 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SpawnEnemy()
+    {
+        SpawnEnemy(prefabAIPawn);
+    }
+
+    public void SpawnEnemy ( Pawn pawnToSpawn )
+    {
+        // Spawn the AI Controller at 0,0,0, 
+        AIController newAI = Instantiate<AIController>(prefabAIController, Vector3.zero, Quaternion.identity);
+
+        //Save it in our AI list
+        enemies.Add(newAI);
+
+        // Connect the controller and pawn!
+        newAI.PossessPawn(SpawnPawn());
+
+        // Subscribe to the new enemy's OnDeath event
+        Health newAIHealth = newAI.pawn.GetComponent<Health>();
+        
+        if (newAIHealth != null)
+        {
+            newAIHealth.OnDeath.AddListener(OnEnemyDeath);
+        }
+    }
+
+    public void OnEnemyDeath()
+   {
+       // Subtract 1 from enemies remaining
+       enemiesRemaining--;
+
+       // TODO: Add anything else we need to do when the enemy dies
+
+       // If we are out of enemies, advance to the next wave
+       if (enemiesRemaining <= 0) {
+           // advance to next wave
+           currentWave++;
+
+           // If it exists, spawn it.
+           if (currentWave < waves.Count)
+           {
+               SpawnWave(waves[currentWave]);
+           }
+           // Otherwise, Victory!
+           else
+           {
+               DoVictory();
+           }
+       }        
+   }
+
+    public void DoVictory()
+    {
+        Debug.Log("---------------VICTORY---------------");
+    }
+
+    public void SpawnWave (int waveNumber)
+    {
+        // Spawn the wave for that wave number using our overloaded function!
+        SpawnWave(waves[waveNumber]);
+
+    }
+
+    public void SpawnWave (WaveData wave)
+    {
+        // For each enemy in the wave
+        foreach (Pawn enemyToSpawn in wave.pawns )
+        {
+            // Spawn the enemy
+            SpawnEnemy(enemyToSpawn);
+        }
+
+        // Save the number of enemies
+        enemiesRemaining = wave.pawns.Count;
+    }
+
     public void StartGame()
     {
+        // Set our current wave to 0
+        currentWave = 0;
+
         // Connect to our camera
         FindCamera();
 
@@ -77,6 +197,31 @@ public class GameManager : MonoBehaviour
 
         // Spawn player
         SpawnPlayer();
+
+        // Spawn our current wave
+        SpawnWave(waves[currentWave]);
+    }
+
+    public void ClearEnemies ()
+    {
+        // For every enemy in the enemy list
+        foreach (AIController enemy in enemies)
+        {
+            // if that enemy exists
+            if (enemy != null) 
+            { 
+                // If it has a pawn
+                if (enemy.pawn!= null)
+                {
+                    // destroy the pawn
+                    Destroy(enemy.pawn.gameObject);
+                }   
+                // Destroy the Controller
+                Destroy (enemy.gameObject);
+            }
+        }
+        // After we have destroyed all the enemies and pawns, clear the list of enemies
+        enemies.Clear();
     }
 
     public Transform GetRandomSpawnPoint ()
