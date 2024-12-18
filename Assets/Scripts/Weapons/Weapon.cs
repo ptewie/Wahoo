@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
+    [HideInInspector] public Pawn owner;
     public float damageDone; 
     public float fireRate;
 
@@ -19,7 +20,7 @@ public class Weapon : MonoBehaviour
         // Find that percentage between the negative (to the Left) and positive (to the right) values of this rotation.
         float accuracyDeltaDegrees = Mathf.Lerp(-maxAccuracyRotation, maxAccuracyRotation, accuracyDeltaPercentage);
         accuracyDeltaDegrees *= accuracyModifier;
-        
+
         // Return that value
         return accuracyDeltaDegrees;
      }

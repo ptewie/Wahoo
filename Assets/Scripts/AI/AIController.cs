@@ -7,11 +7,12 @@ public class AIController : Controller
 {
     [HideInInspector] public NavMeshAgent agent;
     public float stoppingDistance;
-    public float accuracy;
+
 
     [SerializeField] private float shootingDistance;
+    
+    [SerializeField]  private float shootingAngle; 
 
-    [SerializeField]  private float shootingAngle;
 
 
     //public Pawn pawn;
@@ -95,9 +96,9 @@ public class AIController : Controller
             if ( Vector3.Angle(pawn.transform.forward, vectorToTarget) <= shootingAngle)
             {
                 // They should pull the trigger
-                pawn.weapon.OnPrimaryAttackBegin.Invoke();
-            }
-        } else
+                pawn.weapon.OnPrimaryAttackBegin.Invoke(); //WHY IS THIS CAUSIGN THE FUCKING SOIUDBNEFFECT TO LOOP!?!! i guess ill REMOVE IT
+            }                                              // i am sorry for swearing prof but my anger needs to be immoortalized 
+        } else                                             // if that counts as "non-correct" commenting standards I WILL CRY you uindertand
         {
             // They can release the trigger
             pawn.weapon.OnPrimaryAttackEnd.Invoke();

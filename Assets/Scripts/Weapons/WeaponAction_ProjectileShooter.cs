@@ -30,7 +30,7 @@ public class WeaponAction_ProjectileShooter : WeaponAction
             // Instantiate the projectile
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation) as GameObject;
 
-            projectile.transform.Rotate(0, weapon.GetAccuracyRotationDegrees(weapon.owner,controller.accuracy), 0);       
+            projectile.transform.Rotate(0, weapon.GetAccuracyRotationDegrees(weapon.owner.controller.accuracy), 0);       
            
 
             // Set the data for the projectile

@@ -33,6 +33,9 @@ public abstract class Pawn : MonoBehaviour
         Debug.Log(weaponToEquip + " " + weaponAttachmentPoint);
         weapon = Instantiate(weaponToEquip, weaponAttachmentPoint) as Weapon;
         weapon.gameObject.layer = this.gameObject.layer;
+        
+        // Set the weapon's owner
+        weapon.owner = this;
     }
 
     public void UnequipWeapon ()
