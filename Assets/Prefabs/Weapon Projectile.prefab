@@ -29,6 +29,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3416277203447447013, guid: f0aca6af94e06254ebdfe0998c50cdd0, type: 3}
+      propertyPath: maxAccuracyRotation
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3416277203447447013, guid: f0aca6af94e06254ebdfe0998c50cdd0, type: 3}
       propertyPath: OnPrimaryAttackBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: -186602665586743822}
@@ -170,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastShotTime: 0
   damageDone: 10
-  fireRate: 0
+  fireRate: 2
   firePoint: {fileID: 3709692267199536351}
   projectilePrefab: {fileID: 2537208531855751999, guid: 467266790a3bcc048b0c7f4796473c34, type: 3}
 --- !u!1001 &9092087771671822318

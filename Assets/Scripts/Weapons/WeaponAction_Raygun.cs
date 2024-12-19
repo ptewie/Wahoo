@@ -54,7 +54,7 @@ public class WeaponAction_Raygun : WeaponAction
             // Multiply by the rotation from inaccuacy to set new rotation value
             newFireDirection = accuracyFireDelta * newFireDirection;
 
-                if (Physics.Raycast(firepoint.position, firepoint.forward, out hit, fireDistance)) {
+            if (Physics.Raycast(firepoint.position, newFireDirection, out hit, fireDistance)) {
 
                 // If we hit, and the other object has a Health component
                 Health otherHealth = hit.collider.gameObject.GetComponent<Health>();
@@ -63,7 +63,9 @@ public class WeaponAction_Raygun : WeaponAction
                     // Tell it to take damage!
                     otherHealth.TakeDamage(weapon.damageDone * chargefactor);
                     Debug.Log("Hit!");
+                    ClearCharge();
                 }
+                
             }
 
             LaserBeam laser = Instantiate(laserPrefab, this.transform).GetComponent<LaserBeam>();
@@ -87,6 +89,11 @@ public class WeaponAction_Raygun : WeaponAction
                 chargefactor = chargeModifier;
                 isCharged = true;
             }
+        }
+
+        public void ClearCharge()
+        {
+            isCharged = false;
         }
 }
 

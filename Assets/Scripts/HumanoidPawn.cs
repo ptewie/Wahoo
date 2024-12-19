@@ -6,7 +6,7 @@ public class HumanoidPawn : Pawn
 {
     private Animator animator;    
 
-    void Start()
+    public void Awake()
     {
         animator = GetComponent<Animator>();
     }
