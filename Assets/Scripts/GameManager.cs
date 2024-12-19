@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public Pawn prefabPlayerPawn;
     public Pawn prefabAIPawn;
 
-    private PlayerController player;
+    public PlayerController player;
 
     public int currentWave;
     public List<WaveData> waves;

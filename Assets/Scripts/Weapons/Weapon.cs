@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour
 {
     [HideInInspector] public Pawn owner;
     public float damageDone; 
+    public Sprite weaponIcon;
+    
     public float fireRate;
 
     public float maxAccuracyRotation;
