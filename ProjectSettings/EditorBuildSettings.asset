@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/movement test.unity
+    guid: a35e540010d68084995d6e1a713dc16a
+  - enabled: 1
+    path: Assets/Scenes/Failure.unity
+    guid: 36bcf3b330747a34987f75ef2b2eb971
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: b77e6b4e02d69c644a8c32792ca22449
+  - enabled: 1
+    path: Assets/Scenes/StartScreen.unity
+    guid: e6e72af171a764546add981534914114
+  - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: 468ba862abedc8e44a4297ef4c188c13
+  - enabled: 1
+    path: Assets/Scenes/PauseMenu.unity
+    guid: 2520b5fde67fbe5428b74904cef1b49f
   m_configObjects: {}

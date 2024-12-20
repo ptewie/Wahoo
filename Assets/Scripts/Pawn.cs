@@ -17,10 +17,10 @@ public abstract class Pawn : MonoBehaviour
     public void Start()
         {
 
-        Debug.Log("log 1");
+        //Debug.Log("log 1");
         if (startingWeaponOptions.Length > 0)
         {
-            Debug.Log("log 2");
+            //Debug.Log("log 2");
 
             int weaponIndex = UnityEngine.Random.Range(0,startingWeaponOptions.Length);
 

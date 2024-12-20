@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public CameraController mainCamera;
     public SpawnPoint[] spawnPoints;
+
+    public GameObject prefabEnemyUI;
     
     public bool isPaused;
     public GameObject prefabPlayerController;
@@ -83,10 +86,12 @@ public class GameManager : MonoBehaviour
     public void SpawnEnemy()
     {
         SpawnEnemy(prefabAIPawn);
+
     }
 
-    public void SpawnEnemy ( Pawn pawnToSpawn )
+      public void SpawnEnemy(Pawn pawnToSpawn)
     {
+        UnityEngine.Debug.Log("is tghis even working");
         // Spawn the AI Controller at 0,0,0, 
         AIController newAI = Instantiate<AIController>(prefabAIController, Vector3.zero, Quaternion.identity);
 
@@ -94,17 +99,27 @@ public class GameManager : MonoBehaviour
         enemies.Add(newAI);
 
         // Connect the controller and pawn!
-        newAI.PossessPawn(SpawnPawn());
+        newAI.PossessPawn(SpawnPawn(pawnToSpawn));
 
-        // Subscribe to the new enemy's OnDeath event
+        // If our AI has health 
         Health newAIHealth = newAI.pawn.GetComponent<Health>();
-        
         if (newAIHealth != null)
         {
+            // Subscribe to the new enemy's OnDeath event
             newAIHealth.OnDeath.AddListener(OnEnemyDeath);
+
+            // Spawn a UI and attach it to the enemy
+            GameObject newEnemyUI = Instantiate(prefabEnemyUI, newAI.pawn.transform) as GameObject;
+            
+            // Connect the enemy health
+            EnemyHealthDisplay newEnemyUIScript = newEnemyUI.GetComponent<EnemyHealthDisplay>();
+
+            if (newEnemyUIScript != null)
+            {
+                newEnemyUIScript.enemyHealth = newAIHealth;
+            }
         }
     }
-
     public void OnEnemyDeath()
    {
        // Subtract 1 from enemies remaining
@@ -132,7 +147,8 @@ public class GameManager : MonoBehaviour
 
     public void DoVictory()
     {
-        Debug.Log("---------------VICTORY---------------");
+        UnityEngine.Debug.Log("---------------VICTORY---------------");
+        SceneManager.LoadScene("Victory");
     }
 
     public void SpawnWave (int waveNumber)
@@ -157,7 +173,9 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        isPaused = false;
         // Set our current wave to 0
+        
         currentWave = 0;
 
         // Connect to our camera
@@ -195,7 +213,7 @@ public class GameManager : MonoBehaviour
         enemies.Clear();
     }
 
-    public Transform GetRandomSpawnPoint ()
+    public Transform GetRandomSpawnPoint()
     {
         // if we have spawn points
         if (spawnPoints.Length > 0)
@@ -215,6 +233,7 @@ public class GameManager : MonoBehaviour
 
     public void DoGameOver()
     {
+        SceneManager.LoadScene("Failure");
     }
 
     public void RespawnPlayer()
@@ -251,7 +270,6 @@ public class GameManager : MonoBehaviour
         // Respawn the player
         RespawnPlayer();
 
-        // TODO: Add anything else we need to do when the player dies
     }
 
     // Start is called before the first frame update
@@ -270,12 +288,15 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
+
         isPaused = true;
         Time.timeScale = 0.0f;
+        SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
     }
 
     public void UnPause()
     {
+        SceneManager.UnloadSceneAsync("PauseMenu");
         isPaused = false;
         Time.timeScale = 1.0f;
     }
