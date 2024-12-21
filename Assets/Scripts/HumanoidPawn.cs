@@ -9,6 +9,12 @@ public class HumanoidPawn : Pawn
     public void Awake()
     {
         animator = GetComponent<Animator>();
+        
+    }
+
+    public Animator GetAnimator()
+    {
+        return animator;
     }
     
     public override void Move(Vector3 direction)

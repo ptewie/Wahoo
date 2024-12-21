@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8314787737258062116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1895279886959598817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 575212086097608940}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &575212086097608940
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895279886959598817}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.11950608, y: 0.7563219, z: -0.14801237}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8314787737258062116}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3292700501049745930
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,13 +170,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4285604665069646905, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1844670049776128730}
+    - targetCorrespondingSourceObject: {fileID: 4285604665069646905, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 575212086097608940}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3472932889502150275, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5873584734305253115}
-    - targetCorrespondingSourceObject: {fileID: 3472932889502150275, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3558062222586493655}
     - targetCorrespondingSourceObject: {fileID: 3472932889502150275, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8396796270999192138}
@@ -158,6 +189,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3472932889502150275, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
       insertIndex: -1
       addedObject: {fileID: -4435815414168056961}
+    - targetCorrespondingSourceObject: {fileID: 3472932889502150275, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6539840294860107718}
   m_SourcePrefab: {fileID: 100100000, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
 --- !u!4 &4547544393179499706 stripped
 Transform:
@@ -235,19 +269,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3558062222586493655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8660386659293604766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ee0968219e9e69498f44c72d8e973e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delayBeforeDestruction: 0.1
 --- !u!114 &8396796270999192138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,3 +340,58 @@ MonoBehaviour:
   shootingDistance: 8
   shootingAngle: 2
   targetTransform: {fileID: 0}
+--- !u!114 &-6539840294860107718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8660386659293604766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88edb047b400d69409fbc89025e919de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBeforeDestruction: 2
+  OnDestroyGameObject:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6539840294860107718}
+        m_TargetAssemblyTypeName: Death_RagdollAndDestroy, Assembly-CSharp
+        m_MethodName: RagdollAndDestroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 186851084649557517}
+        m_TargetAssemblyTypeName: GameActionSpawnParticles, Assembly-CSharp
+        m_MethodName: SpawnParticles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDespawn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
