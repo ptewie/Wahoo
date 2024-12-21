@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.Audio;
+using System.Numerics;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class WaveData 
@@ -20,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     public AudioMixer audioMixer;
     public GameObject prefabEnemyUI;
+
+    public GameObject debugSpawnpoint;
     
     public bool isPaused;
     public GameObject prefabPlayerController;
@@ -38,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        UnityEngine.Debug.Log("rise and shine" + gameObject);
         if (instance == null) 
         {
             instance = this;
@@ -95,10 +100,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-      public void SpawnEnemy(GameObject enemyToSpawn)
+    public void SpawnEnemy(GameObject enemyToSpawn)
     {
-
-        Transform randomSpawnPoint = GetRandomSpawnPoint();
+        debugSpawnpoint = Instantiate(this.gameObject);
+        Transform randomSpawnPoint = debugSpawnpoint.transform;
+        //Transform randomSpawnPoint = GetRandomSpawnPoint();
         
         UnityEngine.Debug.Log(randomSpawnPoint);
 
@@ -173,11 +179,13 @@ public class GameManager : MonoBehaviour
         UnityEngine.Debug.Log("Spawning EnemyList");
         
         enemiesRemaining = wave.pawns.Count;
+        UnityEngine.Debug.Log("ENEMIES REAMANING" + enemiesRemaining);
         foreach (GameObject enemyToSpawn in wave.pawns)
         {
             // Spawn the enemy
-            UnityEngine.Debug.Log("pawns" + wave.pawns);
+            UnityEngine.Debug.Log("enemy to spawn" + enemyToSpawn);
             SpawnEnemy(enemyToSpawn);
+
         }
 
     }
@@ -198,7 +206,7 @@ public class GameManager : MonoBehaviour
         FindCamera();
 
         // Load our spawn points
-        LoadSpawnPoints();
+        //LoadSpawnPoints();
 
         // Spawn player
         SpawnPlayer();
@@ -206,7 +214,7 @@ public class GameManager : MonoBehaviour
 
         currentWave = 0;
 
-        SpawnWave(waves[currentWave]);
+        SpawnWave(currentWave);
     }
 
     public void ClearEnemies ()
@@ -233,11 +241,13 @@ public class GameManager : MonoBehaviour
 
     public Transform GetRandomSpawnPoint()
     {
+        UnityEngine.Debug.Log(spawnPoints.Length + "<- numer of spawn points");
         // if we have spawn points
         if (spawnPoints.Length > 0)
         {
+            UnityEngine.Debug.Log(spawnPoints[0]);
             // return a random player spawnpoint
-            return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform;
+            return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length- 1)].gameObject.transform;
         }
         // Otherwise, return null
         return null;
