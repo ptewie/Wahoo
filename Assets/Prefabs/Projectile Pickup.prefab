@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6855330148869116761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6239700976230223420}
+  - component: {fileID: 5155443765376079673}
+  - component: {fileID: 6824711667242841950}
+  m_Layer: 0
+  m_Name: Projectile Pickup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6239700976230223420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6855330148869116761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.003945344, y: -0.007273454, z: 0.0027758176, w: 0.9999619}
+  m_LocalPosition: {x: 5.767, y: -0.561, z: -1.213}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6179250147377950915}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0.454, y: -0.832, z: 0.315}
+--- !u!65 &5155443765376079673
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6855330148869116761}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6824711667242841950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6855330148869116761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4593f741b8b4934fb4dda12bfeb532c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupCollider: {fileID: 5155443765376079673}
+  OnPickup:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  weaponToEquip: {fileID: 8303207965829870944, guid: 402aae66949e6b74aaba5eae8f9ad4db, type: 3}
+--- !u!1001 &5930011697409644328
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6239700976230223420}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5514219
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.1809638
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7813321
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.22957832
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 33.94
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -110.199
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -2.044
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+      propertyPath: m_Name
+      value: BlasterRifle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+--- !u!4 &6179250147377950915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 77bafcd9881f5c141afb52e80d308af5, type: 3}
+  m_PrefabInstance: {fileID: 5930011697409644328}
+  m_PrefabAsset: {fileID: 0}

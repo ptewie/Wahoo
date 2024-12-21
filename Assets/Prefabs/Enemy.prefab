@@ -192,6 +192,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3472932889502150275, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6539840294860107718}
+    - targetCorrespondingSourceObject: {fileID: 3472932889502150275, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 55208604601266944}
   m_SourcePrefab: {fileID: 100100000, guid: 1d07fa48a9a11b745b7356c1cf1bb523, type: 3}
 --- !u!4 &4547544393179499706 stripped
 Transform:
@@ -380,18 +383,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnDespawn:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
+      - m_Target: {fileID: 55208604601266944}
+        m_TargetAssemblyTypeName: GameAction_DropPickup, Assembly-CSharp
+        m_MethodName: DropRandomItem
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnDespawn:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &55208604601266944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8660386659293604766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf327cf986d0da747a39ee85f01d723f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropTable:
+  - objectToDrop: {fileID: 6834497386527596317, guid: e246633211eb8d443a6069b33609c0f1, type: 3}
+    weight: 25
+  - objectToDrop: {fileID: 6855330148869116761, guid: b70e7ca52c145d842bd94a9bfd15c06d, type: 3}
+    weight: 75
