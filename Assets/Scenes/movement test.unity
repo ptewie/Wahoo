@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 57165101}
   - component: {fileID: 57165100}
   m_Layer: 0
-  m_Name: SpawnPoint  (2)
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1471,23 +1471,26 @@ MonoBehaviour:
   - {fileID: 1816237674}
   - {fileID: 57165100}
   - {fileID: 1827132073}
+  audioMixer: {fileID: 0}
   prefabEnemyUI: {fileID: 0}
   isPaused: 1
   prefabPlayerController: {fileID: 7842037396603391462, guid: 1a504950d44eb364185825fba29b6535, type: 3}
   prefabAIController: {fileID: 3255984877449502188, guid: 6aaaea006f1ef8e4c887b0b92b0d0414, type: 3}
-  enemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  enemiesRemaining: 5
+  enemies: []
+  enemiesRemaining: 3
   prefabPlayerPawn: {fileID: 5168510835190563215, guid: cfdc27197c0a8f347a42b9433bb9702e, type: 3}
-  prefabAIPawn: {fileID: 4185056329982855538, guid: 9e4ce05f2cf8d444180367884374c0df, type: 3}
+  prefabAIPawn: {fileID: 8660386659293604766, guid: 9e4ce05f2cf8d444180367884374c0df, type: 3}
   player: {fileID: 0}
   currentWave: 1
+  waves:
+  - pawns:
+    - {fileID: 8660386659293604766, guid: 9e4ce05f2cf8d444180367884374c0df, type: 3}
+    - {fileID: 8660386659293604766, guid: 9e4ce05f2cf8d444180367884374c0df, type: 3}
+    - {fileID: 8660386659293604766, guid: 9e4ce05f2cf8d444180367884374c0df, type: 3}
+  - pawns:
+    - {fileID: 8660386659293604766, guid: 9e4ce05f2cf8d444180367884374c0df, type: 3}
+    - {fileID: 8660386659293604766, guid: 9e4ce05f2cf8d444180367884374c0df, type: 3}
+    - {fileID: 8660386659293604766, guid: 9e4ce05f2cf8d444180367884374c0df, type: 3}
 --- !u!1 &811739327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3009,7 +3012,7 @@ GameObject:
   - component: {fileID: 1816237675}
   - component: {fileID: 1816237674}
   m_Layer: 0
-  m_Name: SpawnPoint  (1)
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3053,7 +3056,7 @@ GameObject:
   - component: {fileID: 1827132074}
   - component: {fileID: 1827132073}
   m_Layer: 0
-  m_Name: SpawnPoint  (3)
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

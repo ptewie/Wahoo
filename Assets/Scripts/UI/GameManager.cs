@@ -4,10 +4,12 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.Audio;
 
+[System.Serializable]
 public class WaveData 
 {
-   public List<Pawn> pawns;
+   public List<GameObject> pawns;
 }
 
 public class GameManager : MonoBehaviour
@@ -16,15 +18,18 @@ public class GameManager : MonoBehaviour
     public CameraController mainCamera;
     public SpawnPoint[] spawnPoints;
 
+    public AudioMixer audioMixer;
     public GameObject prefabEnemyUI;
     
     public bool isPaused;
     public GameObject prefabPlayerController;
     public AIController prefabAIController;
+
+    public GameObject[] prefabsPossibleEnemies;
     public List<AIController> enemies;
     public int enemiesRemaining = 0;
     public Pawn prefabPlayerPawn;
-    public Pawn prefabAIPawn;
+    public GameObject prefabAIPawn;
 
     public PlayerController player;
 
@@ -49,7 +54,8 @@ public class GameManager : MonoBehaviour
     }
 
     public Pawn SpawnPawn()
-    {
+    {   
+        UnityEngine.Debug.Log("test");
         return SpawnPawn(prefabPlayerPawn);
     }
 
@@ -61,7 +67,7 @@ public class GameManager : MonoBehaviour
         return tempPawn;
     }
 
-    public void SpawnPlayer ()
+    public void SpawnPlayer()
     {
         // Spawn the Player Controller at 0,0,0, and save it in our player variable
         if (player == null)
@@ -89,20 +95,27 @@ public class GameManager : MonoBehaviour
 
     }
 
-      public void SpawnEnemy(Pawn pawnToSpawn)
+      public void SpawnEnemy(GameObject enemyToSpawn)
     {
-        UnityEngine.Debug.Log("is tghis even working");
-        // Spawn the AI Controller at 0,0,0, 
-        AIController newAI = Instantiate<AIController>(prefabAIController, Vector3.zero, Quaternion.identity);
+
+        Transform randomSpawnPoint = GetRandomSpawnPoint();
+        
+        UnityEngine.Debug.Log(randomSpawnPoint);
+
+        GameObject newEnemy = Instantiate(enemyToSpawn, randomSpawnPoint.transform.position, randomSpawnPoint.transform.rotation);
+
+
+        AIController newAI = newEnemy.GetComponent<AIController>();
+
 
         //Save it in our AI list
         enemies.Add(newAI);
 
         // Connect the controller and pawn!
-        newAI.PossessPawn(SpawnPawn(pawnToSpawn));
+        //newAI.PossessPawn(SpawnEnemy(enemyToSpawn));
 
         // If our AI has health 
-        Health newAIHealth = newAI.pawn.GetComponent<Health>();
+        Health newAIHealth = newAI.GetComponent<Health>();
         if (newAIHealth != null)
         {
             // Subscribe to the new enemy's OnDeath event
@@ -113,7 +126,6 @@ public class GameManager : MonoBehaviour
             
             // Connect the enemy health
             EnemyHealthDisplay newEnemyUIScript = newEnemyUI.GetComponent<EnemyHealthDisplay>();
-
             if (newEnemyUIScript != null)
             {
                 newEnemyUIScript.enemyHealth = newAIHealth;
@@ -129,8 +141,10 @@ public class GameManager : MonoBehaviour
 
        // If we are out of enemies, advance to the next wave
        if (enemiesRemaining <= 0) {
+
            // advance to next wave
            currentWave++;
+           UnityEngine.Debug.Log("the current wave is" + currentWave);
 
            // If it exists, spawn it.
            if (currentWave < waves.Count)
@@ -148,7 +162,24 @@ public class GameManager : MonoBehaviour
     public void DoVictory()
     {
         UnityEngine.Debug.Log("---------------VICTORY---------------");
-        SceneManager.LoadScene("Victory");
+        //SceneManager.LoadScene("Victory");
+    }
+
+
+
+    public void SpawnWave(WaveData wave)
+    {
+        enemies.Clear();
+        UnityEngine.Debug.Log("Spawning EnemyList");
+        
+        enemiesRemaining = wave.pawns.Count;
+        foreach (GameObject enemyToSpawn in wave.pawns)
+        {
+            // Spawn the enemy
+            UnityEngine.Debug.Log("pawns" + wave.pawns);
+            SpawnEnemy(enemyToSpawn);
+        }
+
     }
 
     public void SpawnWave (int waveNumber)
@@ -158,25 +189,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void SpawnWave (WaveData wave)
-    {
-        // For each enemy in the wave
-        foreach (Pawn enemyToSpawn in wave.pawns )
-        {
-            // Spawn the enemy
-            SpawnEnemy(enemyToSpawn);
-        }
-
-        // Save the number of enemies
-        enemiesRemaining = wave.pawns.Count;
-    }
-
     public void StartGame()
     {
         isPaused = false;
-        // Set our current wave to 0
-        
-        currentWave = 0;
+
 
         // Connect to our camera
         FindCamera();
@@ -187,30 +203,32 @@ public class GameManager : MonoBehaviour
         // Spawn player
         SpawnPlayer();
 
-        // Spawn our current wave
+
+        currentWave = 0;
+
         SpawnWave(waves[currentWave]);
     }
 
     public void ClearEnemies ()
     {
         // For every enemy in the enemy list
-        foreach (AIController enemy in enemies)
+        //foreach (Pawn enemy in enemies)
         {
             // if that enemy exists
-            if (enemy != null) 
+            //if (enemy.pawn != null) 
             { 
                 // If it has a pawn
-                if (enemy.pawn!= null)
+                //if (enemy.pawn!= null)
                 {
                     // destroy the pawn
-                    Destroy(enemy.pawn.gameObject);
+                //    Destroy(enemy.pawn.gameObject);
                 }   
                 // Destroy the Controller
-                Destroy (enemy.gameObject);
+              //  Destroy (enemy.gameObject);
             }
         }
         // After we have destroyed all the enemies and pawns, clear the list of enemies
-        enemies.Clear();
+        //enemies.Clear();
     }
 
     public Transform GetRandomSpawnPoint()
@@ -219,7 +237,7 @@ public class GameManager : MonoBehaviour
         if (spawnPoints.Length > 0)
         {
             // return a random player spawnpoint
-            return spawnPoints[Random.Range(0,spawnPoints.Length)].transform;
+            return spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform;
         }
         // Otherwise, return null
         return null;

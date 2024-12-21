@@ -1,9 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
+    public AudioMixer mainAudioMixer;
+
+    [Header("Volume Sliders")]
+    public Slider mainVolumeSlider;
+    public Slider musicVolumeSlider;
+    public Slider soundVolumeSlider;
+    
+    [Header("Resolution Options")]
+    [SerializeField] private List<String> resolutionOptions;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private Toggle isFullscreenToggle;
+
+
+    private void Awake()
+    {
+        SetResolutionOptions();
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
